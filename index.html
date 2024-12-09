@@ -7,80 +7,127 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #ff6f00;
+            color: white;
             padding: 20px;
-            line-height: 1.6;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
         }
         .food-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
         }
         .food-name {
-            flex: 1;
+            font-size: 18px;
+            color: #333;
         }
         .controls {
             display: flex;
             align-items: center;
         }
         .controls button {
-            margin: 0 5px;
-            padding: 5px 10px;
+            background-color: #ff6f00;
+            border: none;
+            color: white;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .controls button:disabled {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+        .controls .quantity {
+            margin: 0 10px;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
         }
         .total {
-            font-weight: bold;
-            margin-top: 20px;
+            padding: 20px;
+            font-size: 18px;
+            text-align: right;
+            background-color: #f9f9f9;
         }
         .clear-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: red;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ff6f00;
             color: white;
+            font-size: 16px;
             border: none;
             cursor: pointer;
+            text-align: center;
+            font-weight: bold;
         }
         .clear-btn:hover {
-            background-color: darkred;
+            background-color: #e65c00;
         }
     </style>
 </head>
 <body>
-    <h1>Food Order</h1>
-    <div id="food-list">
-        <div class="food-item" data-price="2">
-            <span class="food-name">油条 (2元)</span>
-            <div class="controls">
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
+    <div class="container">
+        <div class="header">美味食品点单</div>
+        <div id="food-list">
+            <div class="food-item" data-price="2">
+                <span class="food-name">油条 (2元)</span>
+                <div class="controls">
+                    <button class="decrease">-</button>
+                    <span class="quantity">0</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+            <div class="food-item" data-price="1">
+                <span class="food-name">豆浆 (1元)</span>
+                <div class="controls">
+                    <button class="decrease">-</button>
+                    <span class="quantity">0</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+            <div class="food-item" data-price="8">
+                <span class="food-name">煎饼 (8元)</span>
+                <div class="controls">
+                    <button class="decrease">-</button>
+                    <span class="quantity">0</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+            <div class="food-item" data-price="4">
+                <span class="food-name">豆腐脑 (4元)</span>
+                <div class="controls">
+                    <button class="decrease">-</button>
+                    <span class="quantity">0</span>
+                    <button class="increase">+</button>
+                </div>
             </div>
         </div>
-        <div class="food-item" data-price="1">
-            <span class="food-name">豆浆 (1元)</span>
-            <div class="controls">
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-            </div>
-        </div>
-        <div class="food-item" data-price="8">
-            <span class="food-name">煎饼 (8元)</span>
-            <div class="controls">
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-            </div>
-        </div>
-        <div class="food-item" data-price="4">
-            <span class="food-name">豆腐脑 (4元)</span>
-            <div class="controls">
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-            </div>
-        </div>
+        <div class="total">总价: 0元</div>
+        <button class="clear-btn">全部清空</button>
     </div>
-    <div class="total">总价: 0元</div>
-    <button class="clear-btn">全部清空</button>
 
     <script>
         const foodItems = document.querySelectorAll('.food-item');
