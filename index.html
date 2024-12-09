@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .food-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .food-name {
+            flex: 1;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+        }
+        .controls button {
+            margin: 0 5px;
+            padding: 5px 10px;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .clear-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>Food Order</h1>
+    <div id="food-list">
+        <div class="food-item" data-price="2">
+            <span class="food-name">油条 (2元)</span>
+            <div class="controls">
+                <button class="decrease">-</button>
+                <span class="quantity">0</span>
+                <button class="increase">+</button>
+            </div>
+        </div>
+        <div class="food-item" data-price="1">
+            <span class="food-name">豆浆 (1元)</span>
+            <div class="controls">
+                <button class="decrease">-</button>
+                <span class="quantity">0</span>
+                <button class="increase">+</button>
+            </div>
+        </div>
+        <div class="food-item" data-price="8">
+            <span class="food-name">煎饼 (8元)</span>
+            <div class="controls">
+                <button class="decrease">-</button>
+                <span class="quantity">0</span>
+                <button class="increase">+</button>
+            </div>
+        </div>
+        <div class="food-item" data-price="4">
+            <span class="food-name">豆腐脑 (4元)</span>
+            <div class="controls">
+                <button class="decrease">-</button>
+                <span class="quantity">0</span>
+                <button class="increase">+</button>
+            </div>
+        </div>
+    </div>
+    <div class="total">总价: 0元</div>
+    <button class="clear-btn">全部清空</button>
+
+    <script>
+        const foodItems = document.querySelectorAll('.food-item');
+        const totalElement = document.querySelector('.total');
+        const clearButton = document.querySelector('.clear-btn');
+
+        function updateTotal() {
+            let total = 0;
+            foodItems.forEach(item => {
+                const price = parseInt(item.getAttribute('data-price'));
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                total += price * quantity;
+            });
+            totalElement.textContent = `总价: ${total}元`;
+        }
+
+        foodItems.forEach(item => {
+            const decreaseButton = item.querySelector('.decrease');
+            const increaseButton = item.querySelector('.increase');
+            const quantityElement = item.querySelector('.quantity');
+
+            decreaseButton.addEventListener('click', () => {
+                let quantity = parseInt(quantityElement.textContent);
+                if (quantity > 0) {
+                    quantity--;
+                    quantityElement.textContent = quantity;
+                    updateTotal();
+                }
+            });
+
+            increaseButton.addEventListener('click', () => {
+                let quantity = parseInt(quantityElement.textContent);
+                if (quantity < 5) {
+                    quantity++;
+                    quantityElement.textContent = quantity;
+                    updateTotal();
+                }
+            });
+        });
+
+        clearButton.addEventListener('click', () => {
+            foodItems.forEach(item => {
+                const quantityElement = item.querySelector('.quantity');
+                quantityElement.textContent = 0;
+            });
+            updateTotal();
+        });
+    </script>
+</body>
+</html>
